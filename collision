@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+const double pi = 3.141592653589793;
+
+int main()
+{
+    double k = 2 * pi; // wave number
+    double lambda = 2 * pi / k; // wavelength
+    double rho = 1; // density of the material
+    double c = sqrt(k / rho); // speed of sound
+    double r = 1; // radius of the scatterer
+    double a = 10; // distance from the origin to the scatterer
+    double theta = pi / 4; // scattering angle
+
+    // incident wave vector
+    double kx = k * sin(theta) * cos(0);
+    double ky = k * sin(theta) * sin(0);
+    double kz = k * cos(theta);
+
+    // scatterer wave vector
+    double kx_prime = k * sin(theta) * cos(pi);
+    double ky_prime = k * sin(theta) * sin(pi);
+    double kz_prime = k * cos(theta);
+
+    // scattering amplitude
+    double amplitude = (4 * pi * r * r * rho * c * c / k) * (exp(-1i * k * a) / a) * (cos(theta) - 1i * sin(theta));
+
+    // scattered wave vector
+    double kx_scattered = kx_prime + kx;
+    double ky_scattered = ky_prime + ky;
+    double kz_scattered = kz_prime + kz;
+
+    // scattered wave function
+    double psi_scattered = amplitude * exp(1i * (kx_scattered * x + ky_scattered * y + kz_scattered * z));
+
+    cout << "Scattered wave function: " << psi_scattered << endl;
+
+    return 0;
+}
